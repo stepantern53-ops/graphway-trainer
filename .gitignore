@@ -1,0 +1,16 @@
+# Local GraphWay secrets and generated development artifacts.
+/.local/
+
+# Per-developer dotenv files; retain safe examples.
+.env
+.env.*
+!.env.example
+
+# Local dependency and test output directories.
+node_modules/
+dist/
+build/
+coverage/
+playwright-report/
+test-results/
+artifacts/

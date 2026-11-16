@@ -1,0 +1,11 @@
+# Real PostgreSQL integration tests
+
+`schema.test.ts` first demonstrated missing users/completions on real PostgreSQL (RED). `auth.test.ts`, `admin.test.ts`, `progress.test.ts`, `completion.test.ts` exercise actual Express/Passport/Argon2/session/SQL behavior. `helpers.ts` imports runtime programmatically and refuses cleanup unless both URL and current_database equal graphway_test. Root Vitest runs these files serially, one worker; never share test cleanup with simultaneous browser suites. No dev database cleanup is implemented.
+
+`service.test.ts` covers bounded Argon2 admission and recovery after overload; `config.test.ts` covers strict test database/port isolation and production origin/proxy defaults. Completion integration includes all 24 levels, L12→Q01 unlock, alternate broad answers, exact quadratic rejection, concurrency/replay/restart, and real connection outage. No browser-arrival proof is claimed by server tests.
+
+`completion.test.ts` also removes a real PG session row and verifies protected-mutation 401, same-user login with fresh CSRF, old-token/locked rejection and full-math retry. `auth.test.ts` exercises unsupported JSON charset and content encoding through the real Express parser and expects safe 400 errors.
+
+`runtime.test.ts` proves production missing config is refused rather than silently acquiring Windows local DB/session secrets. `cli-environment.test.ts` covers ambiguous modes, cross-target dev/test/prod databases and credential-safe errors. `admin-artifact.test.ts` uses disposable OS-temp fixtures for outside-release canonical paths, symlink-parent isolation and exclusive private credential files; POSIX directory-mode/file-symlink cases are skipped on Windows and belong to native verification. No DB mocks, source-text assertions or production credentials are used.
+
+Targeted command: `npm run test:unit -- --project server apps/server/tests/runtime.test.ts apps/server/tests/cli-environment.test.ts apps/server/tests/admin-artifact.test.ts --no-file-parallelism --maxWorkers=1`. Full integration includes these server refusal/FS tests as well as the unchanged real-PG suites. Native production startup/SQL/admin idempotency/auth/progress remain a separate private VPS proof, not a claim made by Windows tests.

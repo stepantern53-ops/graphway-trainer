@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:18.7
+    environment:
+      POSTGRES_DB: ${GRAPHWAY_POSTGRES_BOOTSTRAP_DB:?Run scripts/local-env.ps1 -Action Initialize first}
+      POSTGRES_USER: ${GRAPHWAY_POSTGRES_ADMIN_USER:?Run scripts/local-env.ps1 -Action Initialize first}
+      POSTGRES_PASSWORD: ${GRAPHWAY_POSTGRES_ADMIN_PASSWORD:?Run scripts/local-env.ps1 -Action Initialize first}
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+    ports:
+      - "127.0.0.1:${GRAPHWAY_POSTGRES_PORT:?Run scripts/local-env.ps1 -Action Initialize first}:5432"
+    volumes:
+      - graphway_pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${GRAPHWAY_POSTGRES_ADMIN_USER:?Initialize local secrets first}", "-d", "${GRAPHWAY_POSTGRES_BOOTSTRAP_DB:?Initialize local secrets first}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+
+volumes:
+  graphway_pgdata: {}

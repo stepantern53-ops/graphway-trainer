@@ -1,0 +1,3 @@
+# Layout
+
+`orientation.ts` owns stable device/layout orientation and the React hook. It prefers screen orientation on coarse-pointer devices; fallback tracks the last layout width and orientation. Focused keyboard-only height changes preserve the gate, genuine width-changing rotation recomputes it, and focusout recomputes without requiring another resize. `OrientationGate.tsx` is a component-only React refresh boundary: it hides/inerts the UI without unmounting state. No CSS rotation, orientation lock or persisted fields. `orientation-focus.test.tsx` covers focused 844×390 → 390×844 rotation, 844×390 → 844×240 keyboard resize and blur. `Layout.module.css` provides the readable portrait instruction.

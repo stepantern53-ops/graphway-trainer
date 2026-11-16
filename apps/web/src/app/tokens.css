@@ -1,0 +1,66 @@
+@import '@fontsource-variable/manrope';
+/*
+ * Дизайн-токены GraphWay: фиолетовый (бренд) + кремово-белый + тёмные чернила для акцентов.
+ * Старые имена переменных (--primary, --panel, --border …) сохранены и перенаправлены на новую палитру.
+ */
+:root{
+  --violet:#6538b7;--violet-700:#4f2a92;--violet-500:#7443ca;--violet-400:#8f68dc;--violet-300:#b597f2;--violet-200:#d8c8f7;--violet-100:#ece4fb;--violet-50:#f5f0fd;
+  --cream-0:#fffdf8;--cream:#fbf6ec;--cream-200:#f3ebdc;--cream-300:#e7dbc5;--cream-on-dark:#fff3dc;
+  --ink:#1c1530;--ink-2:#261d3f;--ink-3:#382d55;--board:#1a1330;
+  --bg:var(--cream);--panel:var(--cream-0);--text:var(--ink);--muted:#5b5270;--grid:#e7dbc5;
+  --primary:var(--violet);--focus:var(--violet-500);--danger:var(--ink);--goal:var(--violet);
+  --border:rgba(28,21,48,.1);--border-strong:rgba(28,21,48,.18);
+  --radius:20px;--radius-sm:14px;
+  --ease:cubic-bezier(.22,.8,.24,1);--spring:cubic-bezier(.2,.9,.25,1.15);--out:cubic-bezier(.32,0,.67,0);
+  --shadow:0 1px 0 rgba(255,255,255,.9) inset,0 1px 2px rgba(28,21,48,.05),0 12px 32px -16px rgba(55,30,110,.28);
+  --shadow-lift:0 1px 0 rgba(255,255,255,.9) inset,0 2px 4px rgba(28,21,48,.06),0 22px 44px -18px rgba(55,30,110,.38);
+  --math:"STIX Two Text","Cambria Math",Georgia,serif;
+  font-family:'Manrope Variable',Manrope,system-ui,sans-serif;color:var(--text);background:var(--bg);
+  font-synthesis:none;font-optical-sizing:auto;-webkit-font-smoothing:antialiased;color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;min-width:320px;min-height:100vh;background:radial-gradient(1100px 600px at 12% -10%,rgba(143,104,220,.1),transparent 60%),radial-gradient(900px 500px at 110% 110%,rgba(143,104,220,.08),transparent 60%),var(--bg)}
+button,input{font:inherit;color:inherit}
+button{min-height:44px;padding:10px 18px;border:1px solid var(--border);border-radius:14px;background:var(--cream-0);color:var(--text);font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transition:background-color 180ms var(--ease),border-color 180ms var(--ease),transform 160ms var(--ease),box-shadow 200ms var(--ease),color 180ms}
+button:active:not(:disabled){transform:scale(.97)}
+button:disabled{cursor:not-allowed;opacity:.5}
+button[aria-pressed=true]{background:var(--violet-50);border-color:var(--violet-200);color:var(--violet-700)}
+button.primary{border:0;background:linear-gradient(180deg,#7443ca,#6538b7);color:var(--cream-0);font-weight:800;
+  box-shadow:0 1px 0 rgba(255,255,255,.28) inset,0 -2px 0 rgba(0,0,0,.12) inset,0 10px 22px -10px rgba(101,56,183,.7)}
+button.primary:disabled{opacity:1;background:var(--violet-100);color:var(--violet-400);box-shadow:none}
+button:focus-visible,input:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+input[type=text],input[type=password],input:not([type]){min-width:0;min-height:44px;padding:10px 12px;border:1.5px solid var(--cream-300);border-radius:12px;background:var(--cream);color:var(--text);
+  transition:border-color 160ms,box-shadow 160ms,background-color 160ms}
+input[type=text]:focus,input[type=password]:focus,input:not([type]):focus{outline:none;border-color:var(--violet-400);background:var(--cream-0);box-shadow:0 0 0 4px var(--violet-100)}
+input[aria-invalid=true]{border-color:var(--ink);border-style:dashed}
+input:disabled{opacity:.65}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;min-height:44px;margin:0;background:transparent;cursor:grab;--p:50%}
+input[type=range]:active{cursor:grabbing}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--trk,var(--violet)) var(--p),var(--cream-300) var(--p))}
+input[type=range]::-moz-range-track{height:8px;border-radius:999px;background:var(--cream-300)}
+input[type=range]::-moz-range-progress{height:8px;border-radius:999px;background:var(--trk,var(--violet))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;margin-top:-10px;border-radius:50%;background:var(--cream-0);border:3px solid var(--trk,var(--violet));box-shadow:0 4px 10px -2px rgba(55,30,110,.45);transition:transform 160ms var(--spring)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--cream-0);border:3px solid var(--trk,var(--violet));box-shadow:0 4px 10px -2px rgba(55,30,110,.45)}
+input[type=range]:active::-webkit-slider-thumb{transform:scale(1.15)}
+input[type=range]:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:12px}
+input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px var(--violet-200),0 4px 10px -2px rgba(55,30,110,.45)}
+h1,h2,h3,p{margin-top:0}
+h1{letter-spacing:-.04em;line-height:1.05}
+h2{letter-spacing:-.025em}
+p,li{line-height:1.6}
+small{line-height:1.5;color:var(--muted)}
+progress{accent-color:var(--violet)}
+::selection{background:var(--violet-300);color:var(--ink)}
+[hidden]{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.katex{font-size:1.2em}
+.katex-display{margin:12px 0;overflow-x:auto;overflow-y:hidden;padding:6px}
+@media(hover:hover) and (pointer:fine){
+  button:hover:not(:disabled){border-color:var(--violet-300);background-color:var(--violet-50)}
+  button.primary:hover:not(:disabled){background:linear-gradient(180deg,#7d4fd2,#6a3dbe);transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,.28) inset,0 -2px 0 rgba(0,0,0,.12) inset,0 16px 28px -12px rgba(101,56,183,.8)}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important;scroll-behavior:auto!important}
+  button.primary:hover:not(:disabled),button:active:not(:disabled){transform:none}
+}

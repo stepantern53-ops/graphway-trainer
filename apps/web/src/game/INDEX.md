@@ -1,0 +1,9 @@
+# Game
+
+`game-state.ts` is a pure reducer: shared math verdict → frozen RAM launch → ride ticks → arrival pending → server-confirmed completion or retryable error. Launch makes no request. Exiting cancels a ride and keeps fields only for the same open level/user; selecting another level or reload uses initial.
+
+`GameScreen.tsx` owns optional theory/menu, visible-tab/orientation pauses and completion request lifecycle. `CoefficientControls.tsx` preserves raw fractions/comma/incomplete inputs and uses only declared controls; fixed values are explicit. `GraphBoard.tsx` samples only for SVG rendering, never verdicts; equal SVG units preserve circles, full graph stays dashed, safe preview and contact markers are separate. `TheoryPanel.tsx` renders trusted catalog formulas through KaTeX (`trust:false`) plus accessible text. `Game.module.css` keeps essential graph/controls scrollable at short landscape sizes.
+
+Menu Escape/Continue restore keyboard focus to the exact opener. `../game-screen.test.tsx` proves an actual deferred arrival POST with frozen payload exists before unmount, then resolves it and checks that neither saved progress nor dispatch updates the departed consumer; it also covers both menu focus-return paths.
+
+`presentation.ts` содержит цвета ролей коэффициентов, читаемую строку текущей функции, реплики робота и тон запуска; они никогда не решают, верен ли маршрут. Полноэкранный режим использует нативный API и рабочий fallback уровнем области просмотра с выходом по Escape, возвратом фокуса и выходом при портретной ориентации. Подсказка открывает существующую теорию. Автоматический онбординг и дополнительные графические пояснения на графике не добавляются: настоящие график, точки контакта и метка остаются исчерпывающими. Локальные контракты API, reducer, математики и сервера не заменялись.

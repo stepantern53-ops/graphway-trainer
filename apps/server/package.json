@@ -1,0 +1,28 @@
+{
+  "name": "@graphway/server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "esbuild index=src/main.ts cli/migrate=src/cli/migrate.ts cli/provision-admin=src/cli/provision-admin.ts --bundle --platform=node --format=esm --external:argon2 --external:connect-pg-simple --external:drizzle-orm --external:express --external:express-session --external:helmet --external:passport --external:passport-local --external:pg --external:zod --external:decimal.js --outdir=dist",
+    "typecheck": "tsc --noEmit",
+    "db:migrate": "tsx src/cli/migrate.ts",
+    "admin:provision": "tsx src/cli/provision-admin.ts"
+  },
+  "dependencies": {
+    "@graphway/contracts": "*",
+    "@graphway/curriculum": "*",
+    "@graphway/math-core": "*",
+    "argon2": "^0.44.0",
+    "connect-pg-simple": "^10.0.0",
+    "drizzle-orm": "^0.45.4",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "helmet": "^8.1.0",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.16.3",
+    "zod": "^4.1.12"
+  }
+}
