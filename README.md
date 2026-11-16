@@ -54,18 +54,17 @@ TypeScript, React 19 и Vite, CSS Modules, SVG; Node.js и Express; PostgreSQL �
 
 ## Локальный запуск
 
-Нужны Node.js 24, npm и Docker для PostgreSQL. Команды выполняются из корня репозитория.
+Нужны Node.js 24, npm 11 и Docker для PostgreSQL. Команды выполняются из корня репозитория.
 
-```bash
+Скрипт локальной среды написан на PowerShell, поэтому первая настройка рассчитана на Windows:
+
+```powershell
 npm ci
-docker compose -f compose.graphway.local.yml up -d
-```
-
-Локальные секреты генерируются скриптом `scripts/local-env.ps1` (PowerShell) и не попадают в репозиторий. Дальше:
-
-```bash
-npm run db:migrate      # применить миграции
-npm run admin:provision # создать администратора, если нужен полный доступ
+./scripts/local-env.ps1 -Action Initialize   # создать локальные секреты
+npm run db:start                             # поднять PostgreSQL в Docker
+./scripts/local-env.ps1 -Action Provision    # создать роль приложения и две базы
+npm run db:migrate                           # применить миграции
+npm run admin:provision                      # создать администратора, если нужен полный доступ
 npm run build
 npm start
 ```
@@ -76,7 +75,9 @@ npm start
 npm run dev
 ```
 
-Этот режим поднимает backend на 3001 и Vite на 5173; открывать нужно `http://127.0.0.1:5173`. Запускать его и `npm start` одновременно не следует.
+Этот режим поднимает backend на 3001 и Vite на 5173; открывать нужно `http://127.0.0.1:5173`. Запускать его и `npm start` одновременно не следует. Остановить базу: `npm run db:stop`.
+
+Сгенерированные секреты остаются в игнорируемом каталоге и не печатаются в консоль. Повторять `Initialize` и `Provision` для обычного запуска не нужно.
 
 ## Тесты
 
